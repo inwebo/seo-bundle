@@ -1,0 +1,50 @@
+{
+    "name": "inwebo/seo-bundle",
+    "description": "@todo",
+    "keywords": ["symfony", "bundle", "seo", "metadata"],
+    "homepage": "https://github.com/inwebo/seo-bundle",
+    "type": "symfony-bundle",
+    "version": "1.0.0",
+    "require": {
+        "php": ">=8.4",
+        "symfony/routing": "^7.3",
+        "symfony/http-kernel": "^7.3",
+        "doctrine/orm": "^3.0",
+        "twig/twig": "^3.21",
+        "symfony/event-dispatcher": "^7.3",
+        "symfony/framework-bundle": "^7.3",
+        "symfony/uid": "^7.3",
+        "doctrine/doctrine-bundle": "^3.0",
+        "symfony/console": "^7.3",
+        "symfony/twig-bundle": "^7.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^12.4",
+        "friendsofphp/php-cs-fixer": "^3.88",
+        "phpstan/phpstan": "^2.1",
+        "symfony/yaml": "^7.3"
+    },
+    "license": "GPL-3.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "Inwebo\\SeoBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Inwebo\\SeoBundle\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "inwebo",
+            "email": "github@inwebo.net"
+        }
+    ],
+    "minimum-stability": "stable",
+    "scripts": {
+      "php-cs-fixer": "vendor/bin/php-cs-fixer --allow-risky=yes fix",
+      "phpunit": "vendor/bin/phpunit --testdox",
+      "phpstan": "vendor/bin/phpstan analyse src -c phpstan.neon"
+    }
+}

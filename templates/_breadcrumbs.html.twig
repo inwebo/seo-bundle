@@ -1,0 +1,13 @@
+{% if breadcrumbs|length > 0 %}
+    <nav id="breadcrumbs" aria-label="breadcrumbs">
+        <ol>
+            {% for breadcrumb in breadcrumbs %}
+                {% if loop.index == breadcrumbs|length %}
+                    <li>{{ breadcrumb.name }}</li>
+                {% else %}
+                    <li aria-current="location" {% if breadcrumb.title is not null %} title="{{ breadcrumb.title }}"{% endif %}><a href="{{ breadcrumb.url }}">{{ breadcrumb.name }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ol>
+    </nav>
+{% endif %}

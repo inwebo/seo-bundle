@@ -1,0 +1,24 @@
+when@test:
+    framework:
+        test: true
+        secret: 'foo'
+        router:
+            resource: '%kernel.project_dir%/config/routes.yaml'
+    services:
+        _defaults:
+            autowire: true
+            autoconfigure: true
+
+        Inwebo\SeoBundle\:
+            resource: '../../../src'
+            public: true
+
+    doctrine:
+        dbal:
+            url: 'sqlite:///:memory:'
+        orm:
+            mappings:
+                InweboSeoBundle:
+                    type: attribute
+                    dir: 'src/Entity'
+                    prefix: 'InweboSeoBundle\Entity'

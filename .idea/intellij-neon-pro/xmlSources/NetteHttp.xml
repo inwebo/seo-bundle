@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<neon vendor="nette/http"
+	  version="1"
+	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:noNamespaceSchemaLocation="Neon.xsd">
+	<project>
+		<useExtension name="http" type="Nette\Bridges\HttpDI\HttpExtension" />
+		<useExtension name="session" type="Nette\Bridges\HttpDI\SessionExtension" />
+	</project>
+	<extensions>
+		<extension type="Nette\Bridges\HttpDI\HttpExtension">
+
+		</extension>
+		<extension type="Nette\Bridges\HttpDI\SessionExtension">
+
+		</extension>
+	</extensions>
+</neon>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<neon vendor="nette/di"
+	  version="1"
+	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:noNamespaceSchemaLocation="Neon.xsd">
+	<project>
+		<useExtension name="constants" type="Nette\DI\Extensions\ConstantsExtension" />
+		<useExtension name="decorator" type="Nette\DI\Extensions\DecoratorExtension" />
+		<useExtension name="di" type="Nette\DI\Extensions\DIExtension" />
+		<useExtension name="extensions" type="Nette\DI\Extensions\ExtensionsExtension" />
+		<useExtension name="parameters" type="Nette\DI\Extensions\ParametersExtension" />
+		<useExtension name="php" type="Nette\DI\Extensions\PhpExtension" />
+		<useExtension name="search" type="Nette\DI\Extensions\SearchExtension" />
+		<useExtension name="services" type="Nette\DI\Extensions\ServicesExtension" />
+		<useExtension name="includes" type="string[]" />
+
+		<parameters>
+			<parameter name="tempDir" type="string"/>
+			<parameter name="appDir" type="string"/>
+			<parameter name="wwwDir" type="string"/>
+			<parameter name="vendorDir" type="string"/>
+			<parameter name="debugMode" type="bool"/>
+			<parameter name="productionMode" type="bool"/>
+			<parameter name="consoleMode" type="bool"/>
+		</parameters>
+	</project>
+	<extensions>
+		<extension type="Nette\DI\Extensions\ConstantsExtension">
+
+		</extension>
+		<extension type="Nette\DI\Extensions\DecoratorExtension">
+
+		</extension>
+		<extension type="Nette\DI\Extensions\DIExtension">
+
+		</extension>
+		<extension type="Nette\DI\Extensions\ExtensionsExtension">
+
+		</extension>
+		<extension type="Nette\DI\Extensions\ParametersExtension">
+
+		</extension>
+		<extension type="Nette\DI\Extensions\PhpExtension">
+
+		</extension>
+		<extension type="Nette\DI\Extensions\SearchExtension">
+
+		</extension>
+		<extension type="Nette\DI\Extensions\ServicesExtension">
+
+		</extension>
+	</extensions>
+</neon>

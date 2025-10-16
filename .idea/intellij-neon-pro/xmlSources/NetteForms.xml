@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<neon vendor="nette/forms"
+	  version="1"
+	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:noNamespaceSchemaLocation="Neon.xsd">
+	<project>
+		<useExtension name="forms" type="Nette\Bridges\FormsDI\FormsExtension" />
+	</project>
+	<extensions>
+		<extension type="Nette\Bridges\FormsDI\FormsExtension">
+
+		</extension>
+	</extensions>
+</neon>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<neon vendor="nette/security"
+	  version="1"
+	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:noNamespaceSchemaLocation="Neon.xsd">
+	<project>
+		<useExtension name="security" type="Nette\Bridges\SecurityDI\SecurityExtension" />
+	</project>
+	<extensions>
+		<extension type="Nette\Bridges\SecurityDI\SecurityExtension">
+
+		</extension>
+	</extensions>
+</neon>

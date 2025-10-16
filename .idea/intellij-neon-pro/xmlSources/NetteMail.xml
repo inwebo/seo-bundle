@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<neon vendor="nette/mail"
+	  version="1"
+	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:noNamespaceSchemaLocation="Neon.xsd">
+	<project>
+		<useExtension name="mail" type="Nette\Bridges\MailDI\MailExtension" />
+	</project>
+	<extensions>
+		<extension type="Nette\Bridges\MailDI\MailExtension">
+
+		</extension>
+	</extensions>
+</neon>

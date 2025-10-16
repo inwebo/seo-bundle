@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<neon vendor="nette/application"
+	  version="1"
+	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:noNamespaceSchemaLocation="Neon.xsd">
+	<project>
+		<useExtension name="application" type="Nette\Bridges\ApplicationDI\ApplicationExtension" />
+		<useExtension name="latte" type="Nette\Bridges\ApplicationDI\LatteExtension" />
+		<useExtension name="routing" type="Nette\Bridges\ApplicationDI\RoutingExtension" />
+	</project>
+	<extensions>
+		<extension type="Nette\Bridges\ApplicationDI\ApplicationExtension">
+
+		</extension>
+		<extension type="Nette\Bridges\ApplicationDI\LatteExtension">
+
+		</extension>
+		<extension type="Nette\Bridges\ApplicationDI\RoutingExtension">
+
+		</extension>
+	</extensions>
+</neon>

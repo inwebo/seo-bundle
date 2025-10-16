@@ -1,0 +1,44 @@
+homepage:
+    path: /
+    options:
+        breadcrumb:
+            name: Homepage
+            parent: ~
+            title: My homepage
+
+blog:
+    path: /blog
+    options:
+        breadcrumb:
+            name: Blog
+            parent: homepage
+            title: My blog
+
+blog_paginated:
+    path: /blog/page-{{page}}
+    options:
+        breadcrumb:
+            name: Page {{ page }} / {{ total }}
+            parent: blog
+            title: My blog paginated
+
+blog_paginated_missing_name:
+    path: /blog/page-{{page}}
+    options:
+        breadcrumb:
+            parent: blog
+            title: My blog
+
+blog_paginated_missing_parent:
+    path: /blog/page-{{page}}
+    options:
+        breadcrumb:
+            name: Page {{ page }} / {{ total }}
+            title: My blog
+
+blog_paginated_missing_title:
+    path: /blog/page-{{page}}
+    options:
+        breadcrumb:
+            name: Page {{ page }} / {{ total }}
+            parent: blog

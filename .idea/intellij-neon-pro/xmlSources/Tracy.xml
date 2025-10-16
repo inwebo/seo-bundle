@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<neon vendor="tracy/tracy"
+	  version="1"
+	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:noNamespaceSchemaLocation="Neon.xsd">
+	<project>
+		<useExtension name="tracy" type="Tracy\Bridges\Nette\TracyExtension" />
+	</project>
+	<extensions>
+		<extension type="Tracy\Bridges\Nette\TracyExtension">
+			<schema>
+				<structure>
+					<field name="email">
+						<email />
+						<anyOf>
+							<listOf>
+								<value><email /></value>
+							</listOf>
+						</anyOf>
+					</field>
+					<field name="fromEmail"><email /></field>
+					<field name="emailSnooze"><string /></field>
+					<field name="logSeverity">
+						<useReusable ref="phpSeverity"/>
+					</field>
+					<field name="strictMode">
+						<useReusable ref="phpSeverity"/>
+					</field>
+					<field name="scream">
+						<useReusable ref="phpSeverity"/>
+					</field>
+					<field name="editor"><type value="string|null" /></field>
+					<field name="browser"><string /></field>
+					<field name="errorTemplate"><string /></field>
+					<field name="dumpTheme"><string /></field>
+					<field name="showBar"><bool /></field>
+					<field name="showLocation"><bool /></field>
+					<field name="maxLength"><int /></field>
+					<field name="maxDepth"><int /></field>
+					<field name="maxItems"><int /></field>
+					<field name="keysToHide">
+						<arrayOf>
+							<value><type value="string|int|null" /></value>
+						</arrayOf>
+					</field>
+					<field name="bar">
+						<listOf>
+							<value><type value="string|\Nette\DI\Definitions\Statement" /></value>
+						</listOf>
+					</field>
+					<field name="blueScreen"><callable /></field>
+					<field name="editorMapping" default="null">
+						<anyOf>
+							<null />
+							<arrayOf>
+								<key><string /><int /></key>
+								<value><string /></value>
+							</arrayOf>
+						</anyOf>
+					</field>
+					<field name="netteMailer"><bool /></field>
+				</structure>
+			</schema>
+			<services>
+				<service name="logger" type="\Tracy\ILogger"/>
+				<service name="blueScreen" type="\Tracy\BlueScreen"/>
+				<service name="bar" type="\Tracy\Bar"/>
+			</services>
+		</extension>
+	</extensions>
+	<reusables>
+		<reusable id="phpSeverity">
+			<anyOf>
+				<bool />
+				<int />
+				<string pattern="(E_(?:ALL|PARSE|STRICT|RECOVERABLE_ERROR|(?:CORE|COMPILE)_(?:ERROR|WARNING)|(?:USER_)?(?:ERROR|WARNING|NOTICE|DEPRECATED))|[ &amp;|~()])+" />
+				<listOf>
+					<value><string pattern="E_(?:ALL|PARSE|STRICT|RECOVERABLE_ERROR|(?:CORE|COMPILE)_(?:ERROR|WARNING)|(?:USER_)?(?:ERROR|WARNING|NOTICE|DEPRECATED))" /></value>
+				</listOf>
+			</anyOf>
+		</reusable>
+	</reusables>
+</neon>
