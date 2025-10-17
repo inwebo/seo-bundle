@@ -3,14 +3,12 @@ when@test:
         test: true
         secret: 'foo'
         router:
-            resource: '%kernel.project_dir%/config/routes.yaml'
+            resource: '%kernel.project_dir%/Fixtures/config/routes_breadcrumbs.yaml'
     services:
-        _defaults:
-            autowire: true
-            autoconfigure: true
-
         Inwebo\SeoBundle\:
-            resource: '../../../src'
+            resource: '../../../src/**'
+            exclude:
+                - '../../../src/Model/**'
             public: true
 
     doctrine:
@@ -20,5 +18,5 @@ when@test:
             mappings:
                 InweboSeoBundle:
                     type: attribute
-                    dir: 'src/Entity'
-                    prefix: 'InweboSeoBundle\Entity'
+                    dir: 'tests/Fixtures/Entity'
+                    prefix: 'Inwebo\SeoBundle\Tests\Fixtures\Entity'

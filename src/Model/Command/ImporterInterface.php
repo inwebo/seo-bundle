@@ -6,8 +6,14 @@ namespace Inwebo\SeoBundle\Model\Command;
 
 use Symfony\Component\Routing\Route;
 
+/**
+ * @template TEntity of object
+ */
 interface ImporterInterface
 {
+    /**
+     * @return list<TEntity>
+     */
     public function getEntities(): array;
 
     public function isValid(string $routeName, Route $route): bool;

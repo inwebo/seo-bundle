@@ -18,24 +18,6 @@ use Symfony\Component\Uid\UuidV6 as Uuid;
 interface BreadcrumbInterface
 {
     /**
-     * Returns the internal numeric identifier of the breadcrumb if it exists.
-     *
-     * Note: This is typically managed by the persistence layer.
-     *
-     * @return int|null the database identifier or null if not persisted yet
-     */
-    public function getId(): ?int;
-
-    /**
-     * Sets the internal numeric identifier.
-     *
-     * Note: Intended for ORM/persistence usage only.
-     *
-     * @param int|null $id the identifier to set
-     */
-    public function setId(?int $id): void;
-
-    /**
      * Returns the unique UUID (version 6) identifier of the breadcrumb.
      *
      * @return Uuid|null the UUID value or null if not initialized
@@ -48,15 +30,6 @@ interface BreadcrumbInterface
      * @return string|null the route name or null when not set
      */
     public function getRoute(): ?string;
-
-    /**
-     * Sets the Symfony route name associated with this breadcrumb.
-     *
-     * @param string $route the route name
-     *
-     * @return static fluent interface
-     */
-    public function setRoute(string $route): static;
 
     /**
      * Gets the human-readable label of the breadcrumb item.

@@ -1,11 +1,11 @@
 {% if breadcrumbs|length > 0 %}
-    <nav id="breadcrumbs" aria-label="breadcrumbs">
+    <nav aria-label="Breadcrumb">
         <ol>
             {% for breadcrumb in breadcrumbs %}
-                {% if loop.index == breadcrumbs|length %}
-                    <li>{{ breadcrumb.name }}</li>
+                {% if loop.index != breadcrumbs|length %}
+                    <li {% if breadcrumb.title is not null %} title="{{ breadcrumb.title }}"{% endif %}><a href="{{ breadcrumb.url }}">{{ breadcrumb.name }}</a></li>
                 {% else %}
-                    <li aria-current="location" {% if breadcrumb.title is not null %} title="{{ breadcrumb.title }}"{% endif %}><a href="{{ breadcrumb.url }}">{{ breadcrumb.name }}</a></li>
+                    <li aria-current="page">{{ breadcrumb.name }}</li>
                 {% endif %}
             {% endfor %}
         </ol>

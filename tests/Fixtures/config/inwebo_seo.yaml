@@ -1,0 +1,8 @@
+when@test:
+    inwebo_seo:
+        breadcrumb:
+            entity: 'Inwebo\SeoBundle\Tests\Fixtures\Entity\Breadcrumb'
+        metadata:
+            entity: 'Inwebo\SeoBundle\Tests\Fixtures\Entity\Metadata'
+            excluded_routes:
+                - 'admin_'

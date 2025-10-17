@@ -2,18 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Inwebo\SeoBundle\Entity;
+namespace Inwebo\SeoBundle\Tests\Fixtures\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Inwebo\SeoBundle\Model\BreadcrumbInterface;
-use Inwebo\SeoBundle\Model\HasRouteNameInterface;
+use Doctrine\ORM\Mapping\Entity;
+use Inwebo\SeoBundle\Entity\Breadcrumb as BaseBreadcrumb;
 use Symfony\Component\Uid\UuidV6 as Uuid;
 
-#[ORM\MappedSuperclass]
-class Breadcrumb implements BreadcrumbInterface, HasRouteNameInterface
+#[Entity]
+class Breadcrumb extends BaseBreadcrumb
 {
     public const CONFIG_KEY = 'breadcrumb';
+
+    /**
+     * Auto-incremented database identifier.
+     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
     /**
      * Canonical string representation of the UUIDv6 identifier.
@@ -58,7 +66,31 @@ class Breadcrumb implements BreadcrumbInterface, HasRouteNameInterface
      */
     public function __construct()
     {
-        $this->uuid = Uuid::generate();
+        parent::__construct();
+    }
+
+    /**
+     * Returns the internal numeric identifier of the breadcrumb if it exists.
+     *
+     * Note: This is typically managed by the persistence layer.
+     *
+     * @return int|null the database identifier or null if not persisted yet
+     */
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    /**
+     * Sets the internal numeric identifier.
+     *
+     * Note: Intended for ORM/persistence usage only.
+     *
+     * @param int|null $id the identifier to set
+     */
+    public function setId(?int $id): void
+    {
+        $this->id = $id;
     }
 
     /**

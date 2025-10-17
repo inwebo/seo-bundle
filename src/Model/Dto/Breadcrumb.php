@@ -11,21 +11,22 @@ final class Breadcrumb
      * @param string      $url   Absolute URL for the breadcrumb
      * @param string|null $title Optional SEO title
      */
-    public function __construct(
-        private string  $name {
-            get {
-                return $this->name;
-            }
-        },
-        private string  $url {
-            get {
-                return $this->url;
-            }
-        },
-        private ?string $title {
-            get {
-                return $this->title;
-            }
-        },
-    ) {}
+    public function __construct(private string $name, private string $url, private ?string $title = null)
+    {
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getUrl(): string
+    {
+        return $this->url;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
 }

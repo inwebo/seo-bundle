@@ -34,14 +34,17 @@ class ImportCommand extends Command
             $table = new Table($output);
             $table->setStyle('box');
             $table->setHeaders(['id', 'route', 'title', 'description', 'h1']);
+            $id = 1;
             foreach ($this->importer->getEntities() as $metadata) {
                 $table->addRow([
-                    $metadata->getId(),
+                    $id,
                     $metadata->getRoute(),
                     $metadata->getTitle(),
                     $metadata->getDescription(),
                     $metadata->getH1(),
                 ]);
+
+                ++$id;
             }
             $table->render();
 

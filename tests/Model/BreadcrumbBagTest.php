@@ -17,23 +17,17 @@ class BreadcrumbBagTest extends TestCase
 
     public function testAddVar(): void
     {
-        $this->breadcrumbBag = BreadcrumbBag::create();
-        $this->breadcrumbBag::addVar(['foo' => 'bar']);
-        $this->assertCount(1, $this->breadcrumbBag::getVars());
-        $this->assertEquals(['foo' => 'bar'], $this->breadcrumbBag::getVars());
-    }
+        $this->breadcrumbBag = new BreadcrumbBag();
 
-    public function testGetVars(): void
-    {
-        $this->breadcrumbBag = BreadcrumbBag::create();
-        $this->assertCount(1, $this->breadcrumbBag::getVars());
-        $this->assertEquals(['foo' => 'bar'], $this->breadcrumbBag::getVars());
-        $this->breadcrumbBag::addVar(['bar' => 'foo']);
-    }
-
-    public function testGetNewVars(): void
-    {
-        $this->breadcrumbBag = BreadcrumbBag::create();
-        $this->assertCount(2, $this->breadcrumbBag::getVars());
+        $this->breadcrumbBag->add(['foo' => 'bar']);
+        $this->assertCount(1, $this->breadcrumbBag->all());
+        $this->assertEquals(['foo' => 'bar'], $this->breadcrumbBag->all());
+        $this->assertEquals('bar', $this->breadcrumbBag->get('foo'));
+        $this->breadcrumbBag->set('oof', 'baz');
+        $this->assertCount(2, $this->breadcrumbBag->all());
+        $this->assertTrue($this->breadcrumbBag->has('oof'));
+        $this->assertTrue($this->breadcrumbBag->has('foo'));
+        $this->breadcrumbBag->clear();
+        $this->assertCount(0, $this->breadcrumbBag->all());
     }
 }

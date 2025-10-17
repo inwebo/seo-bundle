@@ -6,59 +6,29 @@ namespace Inwebo\SeoBundle\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Inwebo\SeoBundle\Entity\Breadcrumb;
-use Inwebo\SeoBundle\Model\BreadcrumbBag;
+use Inwebo\SeoBundle\Model\BagInterface as Bag;
 use Inwebo\SeoBundle\Model\Dto;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
+use Twig\Error;
 
-class Bread implements EventSubscriberInterface
+class Bread extends AbstractSeoService
 {
     /**
      * @var array<int,Dto\Breadcrumb>
      */
     private array $breadcrumbs = [];
 
-    private ?ControllerArgumentsEvent $controllerArgumentsEvent = null;
-
     public function __construct(
-        private readonly Environment $environment,
+        Environment $environment,
+        EntityManagerInterface $entityManager,
+        Bag $bag,
+        string $entityFQCN,
         private readonly UrlGeneratorInterface $urlGenerator,
-        private readonly EntityManagerInterface $entityManager,
-        private readonly string $entityFQCN,
     ) {
-    }
-
-    protected function getControllerArguments(): array
-    {
-        return (null !== $this->controllerArgumentsEvent) ? $this->controllerArgumentsEvent->getArguments() : [];
-    }
-
-    protected function getTwigVariables(): array
-    {
-        $args = $this->getControllerArguments();
-        foreach ((BreadcrumbBag::create())::getVars() as $key => $option) {
-            $args[$key] = $option;
-        }
-
-        return $args;
-    }
-
-    protected function getRouteParameters(Breadcrumb $breadcrumb): array
-    {
-        $vars = array_merge($this->getControllerArguments(), $this->getTwigVariables());
-
-        return array_intersect_key($vars, array_flip($breadcrumb->getRouteParameters()));
-    }
-
-    public static function getSubscribedEvents(): array
-    {
-        return [
-            KernelEvents::CONTROLLER_ARGUMENTS => ['onKernelControllerArguments', -10],
-        ];
+        parent::__construct($environment, $entityManager, $bag, $entityFQCN);
     }
 
     public function onKernelControllerArguments(ControllerArgumentsEvent $event): void
@@ -68,26 +38,56 @@ class Bread implements EventSubscriberInterface
         }
     }
 
+    /**
+     * @return array<string,mixed>
+     */
+    protected function getRouteParameters(Breadcrumb $breadcrumb): array
+    {
+        return array_intersect_key($this->getTwigVariables(), array_flip($breadcrumb->getRouteParameters()));
+    }
+
+    /**
+     * @throws Error\LoaderError
+     * @throws Error\SyntaxError
+     */
     protected function createTemplateName(Breadcrumb $breadcrumb): string
     {
-        return $this
-            ->environment
-            ->createTemplate($breadcrumb->getName() ?? '')
-            ->render($this->getTwigVariables());
+        return html_entity_decode(
+            $this
+                ->environment
+                ->createTemplate($breadcrumb->getName() ?? '')
+                ->render($this->getTwigVariables()),
+            encoding: 'UTF-8'
+        );
     }
 
+    /**
+     * @throws Error\LoaderError
+     * @throws Error\SyntaxError
+     */
     protected function createTemplateTitle(Breadcrumb $breadcrumb): string
     {
-        return $this
-            ->environment
-            ->createTemplate($breadcrumb->getTitle() ?? '')
-            ->render($this->getTwigVariables());
+        return html_entity_decode(
+            $this
+                ->environment
+                ->createTemplate($breadcrumb->getTitle() ?? '')
+                ->render($this->getTwigVariables()),
+            encoding: 'UTF-8'
+        );
     }
 
+    /**
+     * @throws Error\LoaderError
+     * @throws Error\SyntaxError
+     */
     protected function bake(?string $routeName = null): void
     {
         if (is_null($routeName) && null !== $this->controllerArgumentsEvent) {
             $routeName = $this->controllerArgumentsEvent->getRequest()->attributes->get('_route');
+
+            if (null === $routeName) {
+                return;
+            }
         }
 
         /** @var ?Breadcrumb $breadCrumb */
@@ -97,11 +97,15 @@ class Bread implements EventSubscriberInterface
             return;
         }
 
-        $url = $this->urlGenerator->generate(
-            $routeName,
-            $this->getRouteParameters($breadCrumb),
-            UrlGeneratorInterface::ABSOLUTE_URL
-        );
+        try {
+            $url = $this->urlGenerator->generate(
+                $routeName, // @phpstan-ignore argument.type
+                $this->getRouteParameters($breadCrumb),
+                UrlGeneratorInterface::ABSOLUTE_URL
+            );
+        } catch (\Exception $e) {
+            $url = '';
+        }
 
         $this->breadcrumbs[] = new Dto\Breadcrumb(
             $this->createTemplateName($breadCrumb),
@@ -114,13 +118,18 @@ class Bread implements EventSubscriberInterface
         }
     }
 
+    /**
+     * @throws Error\LoaderError
+     * @throws Error\RuntimeError
+     * @throws Error\SyntaxError
+     */
     public function crumbs(): string
     {
         $this->bake();
 
         return $this->environment
             ->render('@InweboSeo/_breadcrumbs.html.twig', [
-                'breadcrumbs' => $this->breadcrumbs,
+                'breadcrumbs' => array_reverse($this->breadcrumbs),
             ]);
     }
 }

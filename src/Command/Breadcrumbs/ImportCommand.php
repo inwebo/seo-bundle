@@ -31,15 +31,18 @@ class ImportCommand extends Command
             $table = new Table($output);
             $table->setStyle('box');
             $table->setHeaders(['id', 'route', 'name', 'title', 'parent', 'route parameters']);
+            $id = 1;
             foreach ($this->importer->getEntities() as $breadcrumb) {
                 $table->addRow([
-                    $breadcrumb->getId(),
+                    $id,
                     $breadcrumb->getRoute(),
                     $breadcrumb->getName(),
                     $breadcrumb->getTitle(),
                     $breadcrumb->getParent(),
                     implode(', ', $breadcrumb->getRouteParameters()),
                 ]);
+
+                ++$id;
             }
             $table->render();
 

@@ -21,12 +21,6 @@
         </testsuite>
     </testsuites>
 
-    <source ignoreIndirectDeprecations="true" restrictNotices="true" restrictWarnings="true">
-        <include>
-            <directory>tests/src</directory>
-        </include>
-    </source>
-
     <php>
         <env name="APP_ENV" value="test" />
         <server name="KERNEL_CLASS" value="Inwebo\SeoBundle\Tests\Fixtures\Kernel" />
