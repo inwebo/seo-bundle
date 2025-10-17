@@ -1,6 +1,6 @@
 {
     "name": "inwebo/seo-bundle",
-    "description": "@todo",
+    "description": "A lightweight Symfony bundle to manage SEO metadata and breadcrumbs.",
     "keywords": ["symfony", "bundle", "seo", "metadata"],
     "homepage": "https://github.com/inwebo/seo-bundle",
     "type": "symfony-bundle",
@@ -14,7 +14,7 @@
         "symfony/event-dispatcher": "^7.3",
         "symfony/framework-bundle": "^7.3",
         "symfony/uid": "^7.3",
-        "doctrine/doctrine-bundle": "^3.0",
+        "doctrine/doctrine-bundle": "^3.0|^2.7",
         "symfony/console": "^7.3",
         "symfony/twig-bundle": "^7.3"
     },
@@ -22,7 +22,8 @@
         "phpunit/phpunit": "^12.4",
         "friendsofphp/php-cs-fixer": "^3.88",
         "phpstan/phpstan": "^2.1",
-        "symfony/yaml": "^7.3"
+        "symfony/yaml": "^7.3",
+        "symfony/browser-kit": "^7.3"
     },
     "license": "GPL-3.0-or-later",
     "autoload": {

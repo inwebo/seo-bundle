@@ -26,6 +26,7 @@ class Kernel extends BaseKernel
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         $loader->load(__DIR__.'/config/config.yaml');
+        $loader->load(__DIR__.'/config/inwebo_seo.yaml');
     }
 
     public function getCacheDir(): string

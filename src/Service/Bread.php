@@ -34,13 +34,13 @@ class Bread implements EventSubscriberInterface
 
     protected function getControllerArguments(): array
     {
-        return (null !== $this->controllerArgumentsEvent) ? $this->controllerArgumentsEvent->getArguments() : [];
+        return (null !== $this->controllerArgumentsEvent) ? $this->controllerArgumentsEvent->getNamedArguments() : [];
     }
 
     protected function getTwigVariables(): array
     {
         $args = $this->getControllerArguments();
-        foreach ((BreadcrumbBag::create())::getVars() as $key => $option) {
+        foreach ((BreadcrumbBag::create())::all() as $key => $option) {
             $args[$key] = $option;
         }
 
@@ -88,6 +88,11 @@ class Bread implements EventSubscriberInterface
     {
         if (is_null($routeName) && null !== $this->controllerArgumentsEvent) {
             $routeName = $this->controllerArgumentsEvent->getRequest()->attributes->get('_route');
+
+            // @todo exception manque la route
+            if (null === $routeName) {
+                exit;
+            }
         }
 
         /** @var ?Breadcrumb $breadCrumb */
@@ -120,7 +125,7 @@ class Bread implements EventSubscriberInterface
 
         return $this->environment
             ->render('@InweboSeo/_breadcrumbs.html.twig', [
-                'breadcrumbs' => $this->breadcrumbs,
+                'breadcrumbs' => array_reverse($this->breadcrumbs),
             ]);
     }
 }

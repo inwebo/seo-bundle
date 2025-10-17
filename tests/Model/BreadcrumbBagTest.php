@@ -18,22 +18,17 @@ class BreadcrumbBagTest extends TestCase
     public function testAddVar(): void
     {
         $this->breadcrumbBag = BreadcrumbBag::create();
-        $this->breadcrumbBag::addVar(['foo' => 'bar']);
-        $this->assertCount(1, $this->breadcrumbBag::getVars());
-        $this->assertEquals(['foo' => 'bar'], $this->breadcrumbBag::getVars());
-    }
+        $this->breadcrumbBag::clear();
+        $this->breadcrumbBag::add(['foo' => 'bar']);
+        $this->assertCount(1, $this->breadcrumbBag::all());
+        $this->assertEquals(['foo' => 'bar'], $this->breadcrumbBag::all());
 
-    public function testGetVars(): void
-    {
         $this->breadcrumbBag = BreadcrumbBag::create();
-        $this->assertCount(1, $this->breadcrumbBag::getVars());
-        $this->assertEquals(['foo' => 'bar'], $this->breadcrumbBag::getVars());
-        $this->breadcrumbBag::addVar(['bar' => 'foo']);
-    }
+        $this->assertCount(1, $this->breadcrumbBag::all());
+        $this->assertEquals(['foo' => 'bar'], $this->breadcrumbBag::all());
+        $this->breadcrumbBag::add(['bar' => 'foo']);
 
-    public function testGetNewVars(): void
-    {
         $this->breadcrumbBag = BreadcrumbBag::create();
-        $this->assertCount(2, $this->breadcrumbBag::getVars());
+        $this->assertCount(2, $this->breadcrumbBag::all());
     }
 }

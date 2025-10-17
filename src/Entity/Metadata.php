@@ -11,12 +11,9 @@ use Symfony\Component\Uid\UuidV6 as Uuid;
 #[ORM\MappedSuperclass]
 class Metadata implements MetadataInterface
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    public const string CONFIG_KEY = 'metadata';
 
-    #[ORM\Column(type: 'uuid', unique: true)]
+    #[ORM\Column(type: 'uuid', unique: true, nullable: false)]
     private string $uuid;
 
     #[ORM\Column(length: 30, unique: true, nullable: false)]
@@ -51,9 +48,11 @@ class Metadata implements MetadataInterface
         return $this->h1;
     }
 
-    public function setH1(?string $h1): void
+    public function setH1(?string $h1): static
     {
         $this->h1 = $h1;
+
+        return $this;
     }
 
     public function getTitle(): ?string

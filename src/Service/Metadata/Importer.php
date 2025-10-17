@@ -23,8 +23,24 @@ class Importer extends AbstractImporter
         parent::__construct($this->router, $this->entityManager, $this->entityFQCN);
     }
 
+    /**
+     * @return array<int, MetadataInterface>
+     */
+    public function getEntities(): array
+    {
+        /** @var array<int, MetadataInterface> $entities */
+        $entities = $this->entities;
+        return $entities;
+    }
+
     public function isValid(string $routeName, Route $route): bool
     {
-        return array_all($this->excludedRoutes, fn ($excludedRoute) => !str_starts_with($routeName, $excludedRoute));
+        foreach ($this->excludedRoutes as $excludedRoute) {
+            if (str_starts_with($routeName, $excludedRoute)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

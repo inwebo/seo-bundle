@@ -11,14 +11,22 @@ use Symfony\Component\Routing\Route;
 
 class Importer extends AbstractImporter
 {
+    /**
+     * @return array<BreadcrumbInterface>
+     */
+    public function getEntities(): array
+    {
+        return $this->entities;
+    }
+
     public function isValid(string $routeName, ?Route $route = null): bool
     {
-        if (!$route->hasOption(Breadcrumb::BREADCRUMB_KEY)) {
+        if (!$route->hasOption(Breadcrumb::CONFIG_KEY)) {
             return false;
         }
 
         /** @var array<string, string|null> $breadcrumbOptions */
-        $breadcrumbOptions = $route->getOption(Breadcrumb::BREADCRUMB_KEY);
+        $breadcrumbOptions = $route->getOption(Breadcrumb::CONFIG_KEY);
 
         return array_key_exists('name', $breadcrumbOptions)
             && array_key_exists('parent', $breadcrumbOptions)
@@ -37,7 +45,7 @@ class Importer extends AbstractImporter
          *     name: string,
          * } $breadcrumbOptions
          */
-        $breadcrumbOptions = $route->getOption(Breadcrumb::BREADCRUMB_KEY);
+        $breadcrumbOptions = $route->getOption(Breadcrumb::CONFIG_KEY);
 
         $entity
             ->setTitle($breadcrumbOptions['title'])
