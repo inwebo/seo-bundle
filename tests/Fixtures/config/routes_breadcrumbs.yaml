@@ -1,5 +1,6 @@
 homepage:
     path: /
+    controller: Inwebo\SeoBundle\Tests\Fixtures\Controller\TestController
     options:
         breadcrumb:
             name: Homepage
@@ -8,6 +9,7 @@ homepage:
 
 blog:
     path: /blog
+    controller: Inwebo\SeoBundle\Tests\Fixtures\Controller\TestController
     options:
         breadcrumb:
             name: Blog
@@ -16,6 +18,10 @@ blog:
 
 blog_paginated:
     path: /blog/page-{{page}}
+    controller: Inwebo\SeoBundle\Tests\Fixtures\Controller\TestController
+    methods: GET
+    requirements:
+        page: '\d+'
     options:
         breadcrumb:
             name: Page {{ page }} / {{ total }}

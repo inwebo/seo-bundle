@@ -12,17 +12,17 @@ final class Breadcrumb
      * @param string|null $title Optional SEO title
      */
     public function __construct(
-        private string  $name {
+        public string  $name {
             get {
                 return $this->name;
             }
         },
-        private string  $url {
+        public string  $url {
             get {
                 return $this->url;
             }
         },
-        private ?string $title {
+        public ?string $title {
             get {
                 return $this->title;
             }

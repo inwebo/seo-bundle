@@ -2,17 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Inwebo\SeoBundle\Entity;
+namespace Inwebo\SeoBundle\Tests\Fixtures\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Inwebo\SeoBundle\Model\BreadcrumbInterface;
+use Doctrine\ORM\Mapping\Entity;
 use Symfony\Component\Uid\UuidV6 as Uuid;
 
-#[ORM\MappedSuperclass]
-class Breadcrumb implements BreadcrumbInterface
+#[Entity]
+class Breadcrumb extends \Inwebo\SeoBundle\Entity\Breadcrumb
 {
     public const string CONFIG_KEY = 'breadcrumb';
+
+    /**
+     * Auto-incremented database identifier.
+     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
     /**
      * Canonical string representation of the UUIDv6 identifier.
@@ -57,7 +65,7 @@ class Breadcrumb implements BreadcrumbInterface
      */
     public function __construct()
     {
-        $this->uuid = Uuid::generate();
+        parent::__construct();
     }
 
     /**
