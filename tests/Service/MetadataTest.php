@@ -40,7 +40,7 @@ class MetadataTest extends TestCase
     {
         $kernel = $this->createMock(HttpKernelInterface::class);
         $request = new Request([], [], array_merge(['_route' => $route], $attributes));
-        $controller = static fn (string $H1 = "from arg H1 controller", string $title = 'from title controller') => null;
+        $controller = static fn (string $H1 = 'from arg H1 controller', string $title = 'from title controller') => null;
 
         return new ControllerArgumentsEvent($kernel, $controller, $attributes, $request, HttpKernelInterface::MAIN_REQUEST);
     }

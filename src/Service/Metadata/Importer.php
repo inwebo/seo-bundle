@@ -30,6 +30,7 @@ class Importer extends AbstractImporter
     {
         /** @var array<int, MetadataInterface> $entities */
         $entities = $this->entities;
+
         return $entities;
     }
 

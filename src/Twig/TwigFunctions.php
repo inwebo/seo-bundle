@@ -14,8 +14,7 @@ readonly class TwigFunctions
     public function __construct(
         private Bread $bread,
         private Metadata $metadata,
-    )
-    {
+    ) {
     }
 
     #[AsTwigFunction('inwebo_seo_breadcrumbs')]

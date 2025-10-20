@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Inwebo\SeoBundle\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Inwebo\SeoBundle\Model\BreadcrumbBag;
 use Inwebo\SeoBundle\Model\MetadataBag;
 use Inwebo\SeoBundle\Model\MetadataInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -50,7 +49,7 @@ class Metadata implements EventSubscriberInterface
             if ($metadata instanceof MetadataInterface) {
                 $this->entity = $metadata;
             } else {
-                throw new \Exception($event->getRequest()->attributes->get('_route') . ' is not a valid metadata object.');
+                throw new \Exception($event->getRequest()->attributes->get('_route').' is not a valid metadata object.');
             }
         }
     }
