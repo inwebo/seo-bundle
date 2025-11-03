@@ -4,7 +4,7 @@
     "keywords": ["symfony", "bundle", "seo", "metadata"],
     "homepage": "https://github.com/inwebo/seo-bundle",
     "type": "symfony-bundle",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "require": {
         "php": ">=8.4",
         "symfony/routing": "^7.3",
