@@ -15,7 +15,7 @@ use Twig\Environment;
 
 class Metadata implements EventSubscriberInterface
 {
-    protected MetadataInterface $entity;
+    protected ?MetadataInterface $entity = null;
     private ?ControllerArgumentsEvent $controllerArgumentsEvent = null;
 
     public function __construct(
@@ -48,8 +48,6 @@ class Metadata implements EventSubscriberInterface
 
             if ($metadata instanceof MetadataInterface) {
                 $this->entity = $metadata;
-            } else {
-                throw new \Exception($event->getRequest()->attributes->get('_route').' is not a valid metadata object.');
             }
         }
     }
@@ -81,7 +79,7 @@ class Metadata implements EventSubscriberInterface
     {
         return $this
             ->environment
-            ->createTemplate($this->entity->getH1() ?? 'todo')
+            ->createTemplate($this->entity?->getH1() ?? 'todo')
             ->render($this->getTwigVariables());
     }
 
@@ -89,7 +87,7 @@ class Metadata implements EventSubscriberInterface
     {
         return $this
             ->environment
-            ->createTemplate($this->entity->getTitle() ?? 'todo')
+            ->createTemplate($this->entity?->getTitle() ?? 'todo')
             ->render($this->getTwigVariables());
     }
 
@@ -97,7 +95,7 @@ class Metadata implements EventSubscriberInterface
     {
         return $this
             ->environment
-            ->createTemplate($this->entity->getDescription() ?? 'todo')
+            ->createTemplate($this->entity?->getDescription() ?? 'todo')
             ->render($this->getTwigVariables());
     }
 }
