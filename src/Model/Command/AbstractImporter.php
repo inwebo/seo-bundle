@@ -26,7 +26,7 @@ class AbstractImporter implements ImporterInterface
 
     public function create(string $routeName, Route $route): object
     {
-        return new $this->entityFQCN()->setRoute($routeName);
+        return (new $this->entityFQCN())->setRoute($routeName);
     }
 
     public function isValid(string $routeName, Route $route): bool
