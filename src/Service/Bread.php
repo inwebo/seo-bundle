@@ -14,6 +14,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
+use Twig\Error;
 
 class Bread implements EventSubscriberInterface
 {
@@ -68,6 +69,10 @@ class Bread implements EventSubscriberInterface
         }
     }
 
+    /**
+     * @throws Error\LoaderError
+     * @throws Error\SyntaxError
+     */
     protected function createTemplateName(Breadcrumb $breadcrumb): string
     {
         return $this
@@ -76,6 +81,10 @@ class Bread implements EventSubscriberInterface
             ->render($this->getTwigVariables());
     }
 
+    /**
+     * @throws Error\LoaderError
+     * @throws Error\SyntaxError
+     */
     protected function createTemplateTitle(Breadcrumb $breadcrumb): string
     {
         return $this
@@ -84,14 +93,17 @@ class Bread implements EventSubscriberInterface
             ->render($this->getTwigVariables());
     }
 
+    /**
+     * @throws Error\LoaderError
+     * @throws Error\SyntaxError
+     */
     protected function bake(?string $routeName = null): void
     {
         if (is_null($routeName) && null !== $this->controllerArgumentsEvent) {
             $routeName = $this->controllerArgumentsEvent->getRequest()->attributes->get('_route');
 
-            // @todo exception manque la route
             if (null === $routeName) {
-                exit;
+                return;
             }
         }
 
@@ -119,6 +131,11 @@ class Bread implements EventSubscriberInterface
         }
     }
 
+    /**
+     * @throws Error\LoaderError
+     * @throws Error\RuntimeError
+     * @throws Error\SyntaxError
+     */
     public function crumbs(): string
     {
         $this->bake();
